@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cacovean_Larisa_Lab2"
+        xmlns:CustomCommands="clr-namespace:Cacovean_Larisa_Lab2.CustomCommands"
         mc:Ignorable="d"
         Title="Virtual Doughnuts Factory" Height="450" Width="800" ResizeMode="NoResize" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Loaded="frmMain_Loaded">
     <Grid x:Name="IblTitle" Margin="0,0,0,-6">
@@ -35,15 +36,15 @@
                 <Label x:Name="IblQuantity" Content="Quantity" Canvas.Top="10"/>
                 <TextBox x:Name="txtQuantity" Canvas.Left="64" Canvas.Top="11" Text="0" TextWrapping="Wrap" Width="26" Height="25"/>
                 <Label x:Name="IblType" Content="Type" Canvas.Left="115" Canvas.Top="11"/>
-                <ComboBox x:Name="cmbType" Canvas.Left="157" Canvas.Top="14" Width="120"/>
+                <ComboBox x:Name="cmbType" Canvas.Left="157" Canvas.Top="14" Width="120" SelectionChanged="cmbType_SelectionChenged"/>
                 <Label x:Name="IblPrice" Content="Price" Canvas.Left="282" Canvas.Top="14"/>
                 <TextBox x:Name="txtPrice" Canvas.Left="325" Canvas.Top="18" Text="0" TextWrapping="Wrap" Width="49" IsReadOnly="True"/>
-                <ListBox x:Name="IstList" Height="42" Width="364" Canvas.Left="10" Canvas.Top="44"/>
+                <ListBox x:Name="lstSale" Height="42" Width="364" Canvas.Left="10" Canvas.Top="44"/>
                 <Label x:Name="IblTotal_" Content="Total" Canvas.Left="213" Canvas.Top="91"/>
                 <TextBox x:Name="txtTotal" Canvas.Left="256" Canvas.Top="96" Text="0" TextWrapping="Wrap" Width="118" Height="22" IsReadOnly="True"/>
-                <Button x:Name="btnAddToSale" Content="Add To Sale" Canvas.Left="455" Canvas.Top="45" FontWeight="Normal" Width="76"/>
-                <Button x:Name="btnRemoveItem" Content="Remove Item" Canvas.Left="457" Canvas.Top="71" FontWeight="Normal"/>
-                <Button x:Name="btnCheckOut" Content="Check Out" Canvas.Left="463" Canvas.Top="96" FontWeight="Bold" Height="28"/>
+                <Button x:Name="btnAddToSale" Content="Add To Sale" Canvas.Left="455" Canvas.Top="45" FontWeight="Normal" Width="76" Click="btnAdd_Click"/>
+                <Button x:Name="btnRemoveItem" Content="Remove Item" Canvas.Left="457" Canvas.Top="71" FontWeight="Normal" Click="btnRemoveItem_Click"/> 
+                <Button x:Name="btnCheckOut" Content="Check Out" Canvas.Left="463" Canvas.Top="96" FontWeight="Bold" Height="28" Click="btnCheckOut_Click"/>
             </Canvas>
         </GroupBox>
         <Menu x:Name="mnuMain" HorizontalAlignment="Left" Height="21" VerticalAlignment="Top"
@@ -59,9 +60,15 @@ Click="glazedToolStripMenuItem_Click" IsCheckable="True"/>
                         <MenuItem x:Name="sugarToolStripMenuItem" Header="Sugar"
 IsCheckable="True" Click="sugarToolStripMenuItem_Click"/>
                     </MenuItem>
-                    <MenuItem Header="Filled"/>
+                    <MenuItem Header="Filled" Click="FilledItems_Click">
+                        <Grid MenuItem.Click="FilledItemsShow_Click"></Grid>
+                        <MenuItem x:Name="lemonFilledMenuItem" Header="Lemon" IsCheckable="True" />
+                        <MenuItem x:Name="chocolateFilledMenuItem" IsCheckable="True" Header="Chocolate"/>
+                        <MenuItem x:Name="vanilaFilledMenuItem" Header="Vanila" IsCheckable="True"/>                                   
+                    </MenuItem>
                 </MenuItem>
-                <MenuItem x:Name="stopToolStripMenuItem" Header="Stop" Click="stopToolStripMenuItem_Click"/>
+                <MenuItem x:Name="stopToolStripMenuItem" Header="Stop" Click="stopToolStripMenuItem_Click" InputGestureText="Ctrl+S" Command="CustomCommands:StopCommand.Launch"/>
+                <MenuItem Header="Inventory" Command="ApplicationCommands.Print"></MenuItem>
             </MenuItem>
         </Menu>
 
